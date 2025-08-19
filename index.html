@@ -1,304 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SexHubz - Home</title>
-  <style>
-    body { margin:0; background:#000; font-family:Arial,sans-serif; color:#fff; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SexHubz - Home</title>
+<style>
+.menu-dropdown {
+  left:16px;
+  top:55px;
+  min-width:160px;
+  flex-direction:column;
+  gap:10px;
+  padding:10px;
+  z-index: 1101; /* add this line */
+}
+.search-box {
+  right:16px;
+  z-index: 1101; /* add this line as well */
+}
+  body { margin:0; background:#000; font-family:Arial,sans-serif; color:#fff; }
 
-    /* Header sits above everything */
-    header {
-      display:flex; justify-content:space-between; align-items:center;
-      background:#111; padding:15px 16px; position:sticky; top:0;
-      z-index:1000;
-    }
+  header {
+    display:flex; justify-content:space-between; align-items:center;
+    background:#111; padding:15px 16px; position:sticky; top:0;
+    z-index:1000;
+  }
+  .left,.right { display:flex; align-items:center; gap:16px; }
+  .menu{ width:28px;height:22px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer; -webkit-tap-highlight-color: transparent;}
+  .menu span{height:3px;background:orange;border-radius:3px;}
+  .logo{ display:flex;align-items:center;font-size:22px;font-weight:bold;color:#fff;cursor:pointer; -webkit-tap-highlight-color: transparent; }
+  .logo span{background:orange;color:black;padding:2px 6px;border-radius:3px;margin-left:2px;}
+  .icon{ width:28px;height:28px;fill:#ccc;cursor:pointer;display:inline-flex;align-items:center;justify-content:center; -webkit-tap-highlight-color: transparent; }
+  .icon * { pointer-events: none; }
+  .search-box,.menu-dropdown { position:absolute; top:100%; background:#222; border-radius:6px; padding:8px; display:none; z-index:1100; transform: translateZ(0); will-change: transform; pointer-events:auto;}
+  .search-box { right:16px; }
+  .search-box form { display:flex; gap:6px; align-items:center; }
+  .search-box input{ padding:6px 10px;border:none;border-radius:4px;outline:none; width:220px;background:#1b1b1b;color:#fff; }
+  .search-box button{ background:orange;color:#000;border:none;border-radius:4px; padding:6px 10px;font-weight:bold;cursor:pointer; }
+  .menu-dropdown { left:16px; top:55px; min-width:160px; flex-direction:column; gap:10px; padding:10px; }
+  .menu-dropdown a { color:white;text-decoration:none;padding:6px 10px; border-radius:4px;background:orange;text-align:left;font-weight:bold;display:block; }
+  .menu-dropdown a:hover{ background:#ff9800; }
+  .dropdown-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:1050; display:none; pointer-events:auto; }
 
-    .left,.right { display:flex; align-items:center; gap:16px; }
-    .menu{width:24px;height:18px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;}
-    .menu span{height:3px;background:orange;border-radius:3px;}
-    .logo{display:flex;align-items:center;font-size:22px;font-weight:bold;color:#fff;}
-    .logo span{background:orange;color:black;padding:2px 6px;border-radius:3px;margin-left:2px;}
-    .icon{width:22px;height:22px;fill:#ccc;cursor:pointer;}
+  #postsContainer{ position:relative; z-index:0; padding:20px; display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+  .post-card{ position:relative; z-index:1; background:#111;color:white;border-radius:10px;overflow:hidden;border:1px solid #222;box-shadow:0 0 10px rgba(255,165,0,0.15); transition: transform .12s ease; }
+  .post-card:hover { transform: translateY(-2px); }
+  .thumb-wrap{ position:relative; }
+  .post-card img{ width:100%; height:180px; object-fit:cover; display:block; cursor:pointer; }
+  .play-badge{ position:absolute; right:10px; bottom:10px; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 8px; border-radius:6px; font-size:12px; }
+  .post-card h3{ margin:10px; font-size:16px; line-height:1.3; min-height:40px; }
+  .empty{ color:#0ff; padding:20px; }
+  .loader{ color:#0ff; padding:20px; }
 
-    /* Dropdown panels above content */
-    .search-box,
-    .profile-dropdown {
-      position:absolute; top:100%; right:16px; background:#222;
-      border-radius:6px; padding:8px; display:none;
-      z-index:1100;
-      transform: translateZ(0);
-      will-change: transform;
-    }
-    .search-box form { display:flex; gap:6px; align-items:center; }
-    .search-box input{
-      padding:6px 10px;border:none;border-radius:4px;outline:none;
-      width:220px;background:#1b1b1b;color:#fff;
-    }
-    .search-box button{
-      background:orange;color:#000;border:none;border-radius:4px;
-      padding:6px 10px;font-weight:bold;cursor:pointer;
-    }
+  @media (max-width:480px){ .search-box input{ width:160px; } }
 
-    .profile-dropdown{ padding:10px; display:none; flex-direction:column; gap:10px; min-width:140px; }
-    .profile-dropdown a{ color:white;text-decoration:none;padding:6px 10px;border-radius:4px;background:orange;text-align:center;font-weight:bold; }
-    .profile-dropdown a:hover{ background:#ff9800; }
-
-    /* Overlay for dropdowns */
-    .dropdown-overlay {
-      position:fixed; inset:0; background:rgba(0,0,0,0.4);
-      z-index:1050; display:none;
-    }
-
-    #postsContainer{
-      position:relative; z-index:0;
-      padding:20px; display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px;
-    }
-
-    .post-card{
-      position:relative; z-index:1;
-      background:#111;color:white;border-radius:10px;overflow:hidden;border:1px solid #222;box-shadow:0 0 10px rgba(255,165,0,0.15);
-      transition: transform .12s ease;
-    }
-    .post-card:hover { transform: translateY(-2px); }
-    .thumb-wrap{ position:relative; }
-    .post-card img{ width:100%; height:180px; object-fit:cover; display:block; cursor:pointer; }
-    .play-badge{
-      position:absolute; right:10px; bottom:10px; background:rgba(0,0,0,0.6);
-      border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 8px; border-radius:6px; font-size:12px;
-    }
-    .post-card h3{ margin:10px; font-size:16px; line-height:1.3; min-height:40px; }
-
-    .empty{ color:#0ff; padding:20px; }
-    .loader{ color:#0ff; padding:20px; }
-
-    /* Small screens */
-    @media (max-width:480px){
-      .search-box input{ width:160px; }
-    }
-  </style>
+  footer { text-align:center; padding:25px 10px 13px 10px; color:#fff; font-weight:bold; font-size:15px; background:#111; letter-spacing:1px; border-top:1px solid #1f1f1f; margin-top:32px; }
+</style>
 </head>
 <body>
 
 <header>
   <div class="left">
-    <div class="menu" aria-label="Menu"><span></span><span></span><span></span></div>
+    <div class="menu" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></div>
+    <div class="menu-dropdown" id="menuDropdown">
+      </a>
+      <a href="./pornstar.html">Coming Soon</a>
+    </div>
   </div>
-  <div class="logo">SEX<span>HUBZ</span></div>
+
+  <div class="logo" id="logoTap">SEX<span>HUBZ</span></div>
+
   <div class="right">
     <svg class="icon" id="searchToggle" viewBox="0 0 24 24" aria-label="Search">
       <circle cx="11" cy="11" r="8" stroke="white" stroke-width="2" fill="none"/>
       <line x1="17" y1="17" x2="22" y2="22" stroke="white" stroke-width="2"/>
     </svg>
-    <svg class="icon" id="profileToggle" viewBox="0 0 24 24" aria-label="Profile">
-      <circle cx="12" cy="8" r="4" fill="white"/>
-      <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="white"/>
-    </svg>
-  </div>
-
-  <!-- Search dropdown -->
-  <div class="search-box" id="searchBox">
-    <form id="searchForm" action="">
-      <input id="q" type="text" name="q" placeholder="Search posts..." />
-      <button type="submit">Search</button>
-    </form>
-  </div>
-
-  <!-- Profile dropdown -->
-  <div class="profile-dropdown" id="profileDropdown">
-    <a href="./login.html">Login</a>
-    <a href="./signup.html">Signup</a>
+    <div class="search-box" id="searchBox">
+      <form id="searchForm" action="">
+        <input id="q" type="text" name="q" placeholder="Search posts..." />
+        <button type="submit">Search</button>
+      </form>
+    </div>
   </div>
 </header>
 
-<!-- Overlay for dropdowns -->
 <div id="overlay" class="dropdown-overlay"></div>
 
 <div id="postsContainer"><p class="loader">⏳ Loading posts...</p></div>
 
+<footer>SEXHUBZ ALL RIGHT RESERVED</footer>
+
 <script>
-  // Dropdown + overlay behavior
+  const overlay = document.getElementById("overlay");
+  const menuToggle = document.getElementById("menuToggle");
+  const menuDropdown = document.getElementById("menuDropdown");
   const searchToggle = document.getElementById("searchToggle");
   const searchBox = document.getElementById("searchBox");
-  const profileToggle = document.getElementById("profileToggle");
-  const profileDropdown = document.getElementById("profileDropdown");
-  const overlay = document.getElementById("overlay");
+  const logoTap = document.getElementById("logoTap");
   const searchForm = document.getElementById("searchForm");
   const qInput = document.getElementById("q");
 
-  function closeAll() {
-    searchBox.style.display = "none";
-    profileDropdown.style.display = "none";
-    overlay.style.display = "none";
-  }
+  function show(el, display="flex"){ if(!el) return; el.style.display=display; }
+  function hide(el){ if(!el) return; el.style.display="none"; }
+  function isShown(el){ if(!el) return false; const ds=el.style.display; return ds?ds!=="none":window.getComputedStyle(el).display!=="none"; }
+  function closeAll(){ hide(menuDropdown); hide(searchBox); hide(overlay); }
+  function openDropdown(dropEl, display="flex"){ closeAll(); show(dropEl, display); show(overlay,"block"); }
 
-  searchToggle.addEventListener("click",(e)=>{
-    e.stopPropagation();
-    const willShow = searchBox.style.display !== "block";
-    closeAll();
-    if (willShow) {
-      searchBox.style.display = "block";
-      overlay.style.display = "block";
-      setTimeout(()=> qInput && qInput.focus(), 0);
-    }
-  });
-
-  profileToggle.addEventListener("click",(e)=>{
-    e.stopPropagation();
-    const willShow = profileDropdown.style.display !== "flex";
-    closeAll();
-    if (willShow) {
-      profileDropdown.style.display = "flex";
-      overlay.style.display = "block";
-    }
-  });
-
-  // Allow clicks inside dropdowns without closing
-  profileDropdown.addEventListener("click", (e) => e.stopPropagation());
-  searchBox.addEventListener("click", (e) => e.stopPropagation());
-
-  document.addEventListener("click",(e)=>{
-    const clickOutsideAll =
-      !e.target.closest("#profileToggle") && !e.target.closest("#profileDropdown") &&
-      !e.target.closest("#searchToggle") && !e.target.closest("#searchBox");
-    if (clickOutsideAll) closeAll();
-  });
+  menuToggle.addEventListener("click", e => { e.stopPropagation(); isShown(menuDropdown)?closeAll():openDropdown(menuDropdown,"flex"); });
+  searchToggle.addEventListener("click", e => { e.stopPropagation(); isShown(searchBox)?closeAll():openDropdown(searchBox,"flex"); setTimeout(()=>qInput.focus(),0); });
+  logoTap.addEventListener("click", ()=> window.location.href="index.html");
+  menuDropdown.addEventListener("click", e=> e.stopPropagation());
+  searchBox.addEventListener("click", e=> e.stopPropagation());
+  document.addEventListener("click", closeAll);
   overlay.addEventListener("click", closeAll);
-
-  // Search submit: keep query in URL and trigger filtering
-  searchForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const q = (qInput.value || "").trim();
-    const url = new URL(window.location.href);
-    if (q) url.searchParams.set("q", q); else url.searchParams.delete("q");
-    window.history.replaceState({}, "", url.toString());
-    closeAll();
-    qInput.dispatchEvent(new Event("input", { bubbles: true }));
-  });
-
-  // Prefill from URL if ?q= present
-  (function syncQueryFromURL(){
-    const urlQ = new URLSearchParams(window.location.search).get("q");
-    if (urlQ) qInput.value = urlQ;
-  })();
 </script>
 
-<!-- Firebase + Load + Search (instant filter + URL param) -->
+<!-- Firebase + Live Search + Player Navigation -->
 <script type="module">
   import { app, db } from "./firebase.js";
   import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const postsContainer = document.getElementById("postsContainer");
   const qInput = document.getElementById("q");
-
-  // Navigation mode:
-  // true  = send src/title/poster via query params (requires each Firestore post to have 'src')
-  // false = send postId and let player.html fetch Firestore doc (works if you only store 'embed' HTML)
   const PREFER_SRC_PARAMS = true;
+  let loadedDocs = [];
 
-  function buildPlayerUrlFromSrc({ src, title, poster }) {
+  function buildPlayerUrlFromSrc({src,title,poster}){
     const url = new URL("player.html", window.location.href);
-    if (src) url.searchParams.set("src", src);
-    if (title) url.searchParams.set("title", title);
-    if (poster) url.searchParams.set("poster", poster);
+    if(src) url.searchParams.set("src", src);
+    if(title) url.searchParams.set("title", title);
+    if(poster) url.searchParams.set("poster", poster);
     return url.toString();
   }
-
-  function buildPlayerUrlFromPostId(postId) {
+  function buildPlayerUrlFromPostId(postId){
     const url = new URL("player.html", window.location.href);
     url.searchParams.set("postId", postId);
     return url.toString();
   }
 
-  function createPostCard(docSnap) {
-    const data = docSnap.data();
-    const id = docSnap.id;
-
+  function createPostCard(docSnap){
+    const data = docSnap.data(), id = docSnap.id;
     const card = document.createElement("div");
-    card.className = "post-card";
-
+    card.className="post-card";
     const thumbWrap = document.createElement("div");
-    thumbWrap.className = "thumb-wrap";
-
-    const img = document.createElement("img");
-    img.src = data.thumbnail || "";
-    img.alt = data.title || "Video";
-    img.loading = "lazy";
-
-    const badge = document.createElement("div");
-    badge.className = "play-badge";
-    badge.textContent = "Play ▶";
-
-    // Navigate to player.html on click
-    img.addEventListener("click", () => {
-      if (PREFER_SRC_PARAMS && data.src) {
-        const playerUrl = buildPlayerUrlFromSrc({
-          src: data.src,
-          title: data.title || "",
-          poster: data.thumbnail || ""
-        });
-        window.location.href = playerUrl;
-      } else {
-        const playerUrl = buildPlayerUrlFromPostId(id);
-        window.location.href = playerUrl;
-      }
+    thumbWrap.className="thumb-wrap";
+    const img=document.createElement("img");
+    img.src=data.thumbnail||""; img.alt=data.title||"Video"; img.loading="lazy";
+    const badge=document.createElement("div"); badge.className="play-badge"; badge.textContent="Play ▶";
+    img.addEventListener("click", ()=>{
+      if(PREFER_SRC_PARAMS && data.src){ window.location.href=buildPlayerUrlFromSrc({src:data.src,title:data.title||"",poster:data.thumbnail||""}); }
+      else{ window.location.href=buildPlayerUrlFromPostId(id); }
     });
-
-    const title = document.createElement("h3");
-    title.textContent = data.title || "";
-
-    thumbWrap.appendChild(img);
-    thumbWrap.appendChild(badge);
-    card.appendChild(thumbWrap);
-    card.appendChild(title);
-
+    const title=document.createElement("h3"); title.textContent=data.title||"";
+    thumbWrap.append(img,badge);
+    card.append(thumbWrap,title);
     return card;
   }
 
-  let loadedDocs = []; // cache to support instant filtering
-
-  function renderList(docs) {
-    postsContainer.innerHTML = "";
-    if (docs.length === 0) {
-      postsContainer.innerHTML = "<p class='empty'>No posts found!</p>";
-      return;
-    }
-    const frag = document.createDocumentFragment();
-    docs.forEach(docSnap => {
-      frag.appendChild(createPostCard(docSnap));
-    });
+  function renderList(docs){
+    postsContainer.innerHTML="";
+    if(docs.length===0){ postsContainer.innerHTML="<p class='empty'>No posts found!</p>"; return; }
+    const frag=document.createDocumentFragment();
+    docs.forEach(docSnap=>frag.appendChild(createPostCard(docSnap)));
     postsContainer.appendChild(frag);
   }
 
-  function filterAndRender() {
-    const term = (qInput.value || "").trim().toLowerCase();
-    if (!term) return renderList(loadedDocs);
-    const filtered = loadedDocs.filter(d => (d.data().title || "").toLowerCase().includes(term));
+  function filterAndRender(){
+    const term=(qInput.value||"").trim().toLowerCase();
+    if(!term) return renderList(loadedDocs);
+    const filtered = loadedDocs.filter(d=> (d.data().title||"").toLowerCase().includes(term));
     renderList(filtered);
+    const url=new URL(window.location.href);
+    if(term) url.searchParams.set("q", term); else url.searchParams.delete("q");
+    window.history.replaceState({}, "", url.toString());
   }
 
-  async function loadPosts() {
-    try {
-      const postsQuery = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+  async function loadPosts(){
+    try{
+      const postsQuery=query(collection(db,"posts"),orderBy("createdAt","desc"));
       const snapshot = await getDocs(postsQuery);
-
-      loadedDocs = [];
-      snapshot.forEach(docSnap => loadedDocs.push(docSnap));
-
-      // Pre-filter if URL has ?q=
-      const urlQ = new URLSearchParams(window.location.search).get("q")?.trim().toLowerCase() || "";
-      if (urlQ && qInput && !qInput.value) qInput.value = urlQ;
-
+      loadedDocs=[];
+      snapshot.forEach(docSnap=>loadedDocs.push(docSnap));
+      const urlQ=new URLSearchParams(window.location.search).get("q")?.trim()||"";
+      if(urlQ && qInput && !qInput.value) qInput.value=urlQ;
       renderList(loadedDocs);
-      if (qInput && qInput.value) filterAndRender();
-
-      // Live filter as user types
-      if (qInput) qInput.addEventListener("input", filterAndRender);
-    } catch (e) {
-      console.error("Failed to load posts:", e);
-      postsContainer.innerHTML = "<p class='empty'>Failed to load posts.</p>";
-    }
+      if(qInput.value) filterAndRender();
+      if(qInput) qInput.addEventListener("input", filterAndRender);
+    }catch(e){ console.error(e); postsContainer.innerHTML="<p class='empty'>Failed to load posts.</p>"; }
   }
+
+  searchForm.addEventListener("submit", e=> { e.preventDefault(); filterAndRender(); });
 
   loadPosts();
 </script>
