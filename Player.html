@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SEXHUBZ — Player</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Header/Navbar */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111;
+    padding: 15px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  .left, .right { display: flex; align-items: center; gap: 16px; }
+  .menu { width:24px; height:18px; display:flex; flex-direction:column; justify-content:space-between; cursor:pointer; }
+  .menu span { height:3px; background:orange; border-radius:3px; }
+  .logo { display: flex; align-items: center; font-size: 22px; font-weight: bold; color:#fff; }
+  .logo span { background: orange; color: black; padding: 2px 6px; border-radius: 3px; margin-left: 2px; }
+  .icon { width:22px; height:22px; fill:#ccc; cursor:pointer; }
+
+  /* Dropdown & Search */
+  .search-box, .profile-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 16px;
+    background: #222;
+    border-radius: 6px;
+    padding: 10px;
+    display: none;
+    z-index: 1100;
+  }
+  .search-box form { display: flex; gap: 6px; align-items: center; }
+  .search-box input {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    width: 220px;
+    background: #1b1b1b;
+    color: #fff;
+  }
+  .search-box button {
+    background: orange;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .profile-dropdown { display: flex; flex-direction: column; gap: 8px; min-width: 140px; }
+  .profile-dropdown a {
+    color: white;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: orange;
+    text-align: center;
+    font-weight: bold;
+  }
+  .profile-dropdown a:hover { background: #ff9800; }
+  .dropdown-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+    z-index: 1050; display: none;
+  }
+
+  /* Player Area */
+  .player-container {
+    flex: 1;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  .player-wrap {
+    width: 100%;
+    position: relative;
+    background: #000;
+    aspect-ratio: 16/9; /* Auto responsive height */
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  video, iframe {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border: none;
+    display: block;
+    background: #000;
+  }
+
+  /* Pornstar Info */
+  .pornstar-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+    display: none;
+  }
+  .pornstar-info img {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid orange;
+  }
+  .pornstar-info span { font-size: 18px; font-weight: bold; color: #ffa500; }
+
+  /* Suggestions */
+  .suggestions { padding: 10px 0; }
+  .suggestions h3 { margin-bottom: 10px; color: #ffa500; }
+  .suggestion-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
+    gap: 10px;
+  }
+  .suggestion-item img {
+    width: 100%; border-radius: 6px;
+    object-fit: cover; cursor: pointer;
+  }
+  .suggestion-item span {
+    display: block; margin-top: 5px;
+    font-size: 14px; text-align: center;
+  }
+  @media (max-width:600px) {
+    .suggestion-list { grid-template-columns: repeat(auto-fill,minmax(120px,1fr)); }
+  }
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="left">
+    <div class="menu" aria-label="Menu"><span></span><span></span><span></span></div>
+  </div>
+  <div class="logo">SEX<span>HUBZ</span></div>
+  <div class="right">
+    <svg class="icon" id="searchToggle" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" stroke="white" stroke-width="2" fill="none"/><line x1="17" y1="17" x2="22" y2="22" stroke="white" stroke-width="2"/></svg>
+    <svg class="icon" id="profileToggle" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="white"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="white"/></svg>
+  </div>
+
+  <!-- Dropdowns -->
+  <div class="search-box" id="searchBox">
+    <form id="searchForm">
+      <input id="q" type="text" placeholder="Search posts..." />
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <div class="profile-dropdown" id="profileDropdown">
+    <a href="./login.html">Login</a>
+    <a href="./signup.html">Signup</a>
+  </div>
+</header>
+<div id="overlay" class="dropdown-overlay"></div>
+
+<!-- Main Player Section -->
+<div class="player-container">
+  <div class="player-wrap">
+    <video id="player" controls autoplay muted></video>
+    <iframe id="embed" style="display:none;" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+  </div>
+
+  <div class="pornstar-info" id="pornstarInfo">
+    <img id="pornstarDP" src="" alt="DP">
+    <span id="pornstarName"></span>
+  </div>
+
+  <div class="suggestions">
+    <h3>Suggested Videos</h3>
+    <div class="suggestion-list" id="suggestionList"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script type="module">
+import { db } from "./firebase.js";
+import { doc, getDoc, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const params = new URLSearchParams(window.location.search);
+const srcParam = params.get('src');
+const posterParam = params.get('poster') || '';
+const postId = params.get('postId');
+
+const videoEl = document.getElementById('player');
+const iframeEl = document.getElementById('embed');
+const dpEl = document.getElementById('pornstarDP');
+const nameEl = document.getElementById('pornstarName');
+const pornstarInfo = document.getElementById('pornstarInfo');
+const suggestionList = document.getElementById('suggestionList');
+
+function playBySrc(src, poster){
+  if(!src) return;
+  if(src.endsWith('.mp4')){
+    videoEl.src = src; videoEl.poster = poster;
+    videoEl.style.display='block'; iframeEl.style.display='none';
+    return;
+  }
+  if(src.includes('.m3u8') && window.Hls && Hls.isSupported()){
+    const hls = new Hls(); hls.loadSource(src); hls.attachMedia(videoEl);
+    videoEl.poster = poster; hls.on(Hls.Events.MANIFEST_PARSED,()=>videoEl.play());
+    videoEl.style.display='block'; iframeEl.style.display='none'; return;
+  }
+  videoEl.style.display='none'; iframeEl.src=src; iframeEl.style.display='block';
+}
+
+async function loadPost(id){
+  try{
+    const snap = await getDoc(doc(db,'posts',id));
+    if(!snap.exists()) return;
+    const data = snap.data();
+
+    if(data.src) playBySrc(data.src,data.thumbnail||posterParam);
+    else if(data.embed){
+      videoEl.style.display='none';
+      iframeEl.style.display='block';
+      if(data.embed.trim().startsWith('<')){
+        const wrap=document.createElement('div'); wrap.innerHTML=data.embed;
+        const found = wrap.querySelector('iframe');
+        if(found) iframeEl.src=found.src||''; 
+        else document.querySelector('.player-wrap').innerHTML=data.embed;
+      } else iframeEl.src=data.embed;
+    }
+    if(data.pornstarName && data.pornstarDP){
+      dpEl.src=data.pornstarDP; nameEl.textContent=data.pornstarName;
+      pornstarInfo.style.display='flex';
+    }
+    loadSuggestions(id);
+  }catch(e){console.error(e);}
+}
+
+async function loadSuggestions(currentId){
+  try{
+    const q = query(collection(db,'posts'),orderBy('createdAt','desc'),limit(12));
+    const snaps = await getDocs(q);
+    suggestionList.innerHTML='';
+    snaps.forEach(docSnap=>{
+      if(docSnap.id===currentId) return;
+      const data = docSnap.data();
+      const div = document.createElement('div');
+      div.className='suggestion-item';
+      div.innerHTML=`<img src="${data.thumbnail||''}" alt=""><span>${data.title||'Untitled'}</span>`;
+      div.addEventListener('click',()=>window.location.href=`player.html?postId=${docSnap.id}`);
+      suggestionList.appendChild(div);
+    });
+  }catch(e){console.error(e);}
+}
+
+async function init(){ if(srcParam) playBySrc(srcParam,posterParam); else if(postId) await loadPost(postId);}
+init();
+
+/* Navbar dropdown JS */
+const searchToggle = document.getElementById("searchToggle");
+const searchBox = document.getElementById("searchBox");
+const profileToggle = document.getElementById("profileToggle");
+const profileDropdown = document.getElementById("profileDropdown");
+const overlay = document.getElementById("overlay");
+const searchForm = document.getElementById("searchForm");
+const qInput = document.getElementById("q");
+function closeAll(){ searchBox.style.display='none'; profileDropdown.style.display='none'; overlay.style.display='none'; }
+searchToggle.addEventListener("click",e=>{ e.stopPropagation(); const show=searchBox.style.display!=='block'; closeAll(); if(show){ searchBox.style.display='block'; overlay.style.display='block'; qInput.focus();}});
+profileToggle.addEventListener("click",e=>{ e.stopPropagation(); const show=profileDropdown.style.display!=='flex'; closeAll(); if(show){ profileDropdown.style.display='flex'; overlay.style.display='block';}});
+document.addEventListener("click",()=>closeAll());
+overlay.addEventListener("click",closeAll);
+searchForm.addEventListener("submit",e=>{ e.preventDefault(); const q=(qInput.value||"").trim(); const url=new URL(window.location.href); if(q) url.searchParams.set("q",q); else url.searchParams.delete("q"); window.history.replaceState({}, "", url.toString()); closeAll(); });
+</script>
+
+</body>
+</html>

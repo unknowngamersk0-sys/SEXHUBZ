@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Add Post</title>
+<style>
+  body { background:#111; color:#fff; font-family:Arial, sans-serif; padding:20px; }
+  input, textarea { width:100%; padding:10px; margin:10px 0; border-radius:8px; border:none; outline:none; }
+  textarea { min-height:120px; resize:vertical; }
+  button { background:orange; color:#000; padding:10px 20px; border:none; border-radius:8px; font-weight:bold; cursor:pointer; }
+  .container { max-width:680px; margin:0 auto; }
+  .row { display:block; }
+  .hint { color:#aaa; font-size:13px; margin-top:4px; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>➕ Add New Post</h2>
+
+    <div class="row">
+      <input id="title" type="text" placeholder="Enter Title" />
+      <div class="hint">Example: My new video</div>
+    </div>
+
+    <div class="row">
+      <input id="thumbnail" type="text" placeholder="Enter Thumbnail URL (https://...)" />
+      <div class="hint">Must be a valid URL</div>
+    </div>
+
+    <div class="row">
+      <textarea id="embedCode" placeholder="Paste Video Embed Code"></textarea>
+      <div class="hint">You can paste an iframe or any embed HTML</div>
+    </div>
+
+    <!-- New Field: Pornstar DP -->
+    <div class="row">
+      <input id="pornstarDP" type="text" placeholder="Enter Pornstar DP URL" 
+             value="https://ei.phncdn.com/pics/users/0024/5807/0141/avatar95302765/(m=ewILGCjadOf)(mh=n7tIeIoHniVFwhIe)200x200.jpg" />
+      <div class="hint">Default: COMATOZZE's avatar</div>
+    </div>
+
+    <!-- New Field: Pornstar Name -->
+    <div class="row">
+      <input id="pornstarName" type="text" placeholder="Enter Pornstar Name" value="COMATOZZE" />
+      <div class="hint">Default: COMATOZZE</div>
+    </div>
+
+    <button id="addBtn">Add Post</button>
+  </div>
+
+  <script type="module">
+    import { db } from "./firebase.js";
+    import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    function isNonEmpty(str){ return typeof str === "string" && str.trim().length > 0; }
+    function isURL(str){ try { new URL(str); return true; } catch { return false; } }
+
+    async function submitPost(){
+      const titleEl = document.getElementById("title");
+      const thumbnailEl = document.getElementById("thumbnail");
+      const embedEl = document.getElementById("embedCode");
+      const dpEl = document.getElementById("pornstarDP");
+      const nameEl = document.getElementById("pornstarName");
+
+      const title = titleEl.value.trim();
+      const thumbnail = thumbnailEl.value.trim();
+      const embed = embedEl.value.trim();
+      const dp = dpEl.value.trim();
+      const name = nameEl.value.trim();
+
+      if(!isNonEmpty(title) || !isNonEmpty(thumbnail) || !isNonEmpty(embed) || !isNonEmpty(dp) || !isNonEmpty(name)){
+        alert("⚠️ Fill all fields");
+        return;
+      }
+      if(!isURL(thumbnail) || !isURL(dp)){
+        alert("⚠️ Thumbnail and DP must be valid URLs (https://...)");
+        return;
+      }
+
+      try{
+        const btn = document.getElementById("addBtn");
+        btn.disabled = true; btn.textContent = "Adding...";
+
+        await addDoc(collection(db, "posts"), {
+          title,
+          thumbnail,
+          embed,
+          pornstarDP: dp,
+          pornstarName: name,
+          createdAt: serverTimestamp()
+        });
+
+        alert("✅ Post added successfully!");
+        titleEl.value = "";
+        thumbnailEl.value = "";
+        embedEl.value = "";
+        dpEl.value = "https://ei.phncdn.com/pics/users/0024/5807/0141/avatar95302765/(m=ewILGCjadOf)(mh=n7tIeIoHniVFwhIe)200x200.jpg";
+        nameEl.value = "COMATOZZE";
+      } catch(e){
+        console.error("Error adding post:", e);
+        alert("❌ Error: " + (e?.message || e));
+      } finally {
+        const btn = document.getElementById("addBtn");
+        btn.disabled = false; btn.textContent = "Add Post";
+      }
+    }
+
+    document.getElementById("addBtn").addEventListener("click", submitPost);
+    window.submitPost = submitPost;
+  </script>
+</body>
+</html>

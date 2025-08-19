@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Posts</title>
+  <style>
+    body { background:#111; color:#fff; font-family:sans-serif; padding:20px; }
+    h1 { text-align:center; color:#0ff; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:20px; margin-top:20px; }
+    .card { background:#222; padding:15px; border-radius:10px; box-shadow:0 0 10px #000; text-align:center; }
+    img { width:100%; border-radius:10px; }
+    .title { margin:10px 0; font-weight:bold; }
+    .video { margin-top:10px; }
+    iframe, video { width:100%; height:200px; border-radius:10px; }
+  </style>
+</head>
+<body>
+  <h1>📺 All Posts</h1>
+  <div class="grid" id="postsGrid"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCGD8TScSsCMG4cltE1l2rJ8T6-F4QiiSo",
+      authDomain: "sexhubz.firebaseapp.com",
+      projectId: "sexhubz",
+      storageBucket: "sexhubz.firebasestorage.app",
+      messagingSenderId: "433161069600",
+      appId: "1:433161069600:web:40100365e228c63891c845",
+      measurementId: "G-2V3R8XG6DE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadPosts() {
+      const postsGrid = document.getElementById("postsGrid");
+      postsGrid.innerHTML = "<p>⏳ Loading...</p>";
+
+      const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+
+      postsGrid.innerHTML = "";
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        const card = `
+          <div class="card">
+            <img src="${data.thumbnail}" alt="${data.title}">
+            <div class="title">${data.title}</div>
+            <div class="video">${data.embed}</div>
+          </div>
+        `;
+        postsGrid.innerHTML += card;
+      });
+    }
+
+    loadPosts();
+  </script>
+</body>
+</html>

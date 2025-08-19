@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Hot Webseries S1E1",
+    "actor": "Actor Name 1",
+    "thumbnail": "thumb1.jpg",
+    "link": "post1.html"
+  },
+  {
+    "title": "Hot Webseries S1E2",
+    "actor": "Actor Name 2",
+    "thumbnail": "thumb2.jpg",
+    "link": "post2.html"
+  },
+  {
+    "title": "Romantic Short Film",
+    "actor": "Actor Name 3",
+    "thumbnail": "thumb3.jpg",
+    "link": "post3.html"
+  }
+]
