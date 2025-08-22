@@ -1,198 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SexHubz - Home</title>
-<style>
-.menu-dropdown {
-  left:16px;
-  top:55px;
-  min-width:160px;
-  flex-direction:column;
-  gap:10px;
-  padding:10px;
-  z-index: 1101; /* add this line */
-}
-.search-box {
-  right:16px;
-  z-index: 1101; /* add this line as well */
-}
-  body { margin:0; background:#000; font-family:Arial,sans-serif; color:#fff; }
+<!DOCTYPE html> <html lang="en" data-theme="dark"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> <meta name="theme-color" content="#000000"> <title>SEXHUBZ — Free HD Videos</title> <meta name="description" content="Watch free HD videos updated daily. Responsive, fast, and stylish experience."> <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin> <link rel="dns-prefetch" href="https://placehold.co"> <script> (function(){ try{ var KEY="sx_theme"; var saved=localStorage.getItem(KEY)||"dark"; document.documentElement.setAttribute("data-theme",saved); if(!localStorage.getItem(KEY)) localStorage.setItem(KEY,"dark"); }catch(e){} })(); </script> <style> :root{ --bg:#000;--surface:#0f0f0f;--surface-2:#141414;--text:#fff;--muted:#bdbdbd; --brand:#ffa500;--brand-2:#ff7a00;--chip:#1f1f1f;--ring:#ffd699; --success:#18c97a;--danger:#ff4d4f;--warning:#ffcc00; --card-radius:12px;--btn-radius:22px;--shadow:0 10px 30px rgba(0,0,0,.45); --elev:0 4px 16px rgba(0,0,0,.35);--glass:rgba(255,255,255,.06); --max-w:1280px;--speed:260ms;--ease:cubic-bezier(.2,.8,.2,1); } [data-theme="light"]{ --bg:#f6f7fb;--surface:#fff;--surface-2:#f2f2f2;--text:#0a0a0a;--muted:#4e4e4e; --brand:#ff7a00;--brand-2:#ffa500;--chip:#f1f1f1;--ring:#ff9a3d; --shadow:0 10px 30px rgba(0,0,0,.08);--elev:0 4px 16px rgba(0,0,0,.06); --glass:rgba(0,0,0,.06); } @media (prefers-color-scheme:light){ :root:not([data-theme="dark"]){ --bg:#f6f7fb;--surface:#fff;--surface-2:#f2f2f2;--text:#0a0a0a;--muted:#4e4e4e; --shadow:0 10px 30px rgba(0,0,0,.08);--elev:0 4px 16px rgba(0,0,0,.06);--glass:rgba(0,0,0,.06) } } *{box-sizing:border-box} html,body{height:100%} body{ margin:0;background:var(--bg);color:var(--text); font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial; -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale; accent-color:var(--brand);scroll-behavior:smooth; } a{color:inherit;text-decoration:none} img{display:block;max-width:100%;height:auto} button{font:inherit} .container{max-width:var(--max-w);margin:0 auto;padding:0 16px} .visually-hidden{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0} .skip-link{position:fixed;left:8px;top:-40px;background:var(--brand);color:#000;padding:8px 12px;border-radius:8px;z-index:9999;transition:top .2s} .skip-link:focus{top:8px} /* Header */ .header{ position:sticky;top:0;z-index:1000; background:color-mix(in oklab,var(--surface) 80%, transparent); backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06); box-shadow:var(--shadow);transition:transform .25s var(--ease),background .25s var(--ease); } .header.hide{transform:translateY(-100%)} /* NAV: Only Logo + Search */ .nav{ display:flex;align-items:center;justify-content:space-between; min-height:64px;gap:12px;flex-wrap:wrap; } .brand{ display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:.3px;font-size:20px; } .brand-badge{background:var(--brand);color:#000;padding:2px 8px;border-radius:6px;font-size:18px} /* Pro Search */ .search{ display:flex;align-items:center;gap:8px;flex:1;max-width:560px; background:var(--surface-2);padding:8px 12px;border-radius:12px; border:1px solid rgba(255,255,255,.06); } .search input{ flex:1;background:transparent;border:0;color:var(--text);outline:0; font-size:14px;min-width:0; } .btn{ background:linear-gradient(180deg,var(--brand),var(--brand-2)); border:0;color:#000;padding:8px 12px;border-radius:20px; box-shadow:0 6px 16px rgba(255,165,0,.25); cursor:pointer;font-weight:700;font-size:14px; transition:transform .15s var(--ease),box-shadow .2s var(--ease) } .btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(255,165,0,.35)} /* Sections */ .section{padding:24px 0} .section h2{margin:0 0 12px 0} /* Firestore cards (from your snippet) */ #postsContainer { padding:16px; display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; } .post-card{ background:#111; color:white; border-radius:10px; overflow:hidden; border:1px solid #222; box-shadow:0 0 10px rgba(255,165,0,0.15); transition: transform .12s ease; } .post-card:hover { transform: translateY(-2px); } .thumb-wrap{ position:relative; } .post-card img{ width:100%; height:180px; object-fit:cover; display:block; cursor:pointer; background:#000; } .play-badge{ position:absolute; right:10px; bottom:10px; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 8px; border-radius:6px; font-size:12px; } .post-card h3{ margin:10px; font-size:16px; line-height:1.3; min-height:40px; } .empty{ color:#0ff; padding:20px; } .loader{ color:#0ff; padding:20px; } /* Focus ring */ :focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-radius:8px} /* Footer */ .footer{padding:40px 0;border-top:1px solid rgba(255,255,255,.08);background:var(--surface)} .foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px} .foot-grid a{display:block;color:var(--muted);padding:6px 0} .foot-grid a:hover{color:var(--text)} @media (max-width:768px){.foot-grid{grid-template-columns:repeat(2,1fr)}} /* Mobile tweaks */ @media (max-width:520px){ .nav{flex-direction:column;align-items:stretch;gap:10px} .search{width:100%} } </style> </head> <body> <a href="#main" class="skip-link">Skip to content</a> <!-- Header: ONLY Logo + Search --> <header class="header" role="banner"> <div class="container nav"> <div class="brand" aria-label="Brand"> <div class="brand-text">SEX</div> <div class="brand-badge">HUBZ</div> </div>
 
-  header {
-    display:flex; justify-content:space-between; align-items:center;
-    background:#111; padding:15px 16px; position:sticky; top:0;
-    z-index:1000;
-  }
-  .left,.right { display:flex; align-items:center; gap:16px; }
-  .menu{ width:28px;height:22px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer; -webkit-tap-highlight-color: transparent;}
-  .menu span{height:3px;background:orange;border-radius:3px;}
-  .logo{ display:flex;align-items:center;font-size:22px;font-weight:bold;color:#fff;cursor:pointer; -webkit-tap-highlight-color: transparent; }
-  .logo span{background:orange;color:black;padding:2px 6px;border-radius:3px;margin-left:2px;}
-  .icon{ width:28px;height:28px;fill:#ccc;cursor:pointer;display:inline-flex;align-items:center;justify-content:center; -webkit-tap-highlight-color: transparent; }
-  .icon * { pointer-events: none; }
-  .search-box,.menu-dropdown { position:absolute; top:100%; background:#222; border-radius:6px; padding:8px; display:none; z-index:1100; transform: translateZ(0); will-change: transform; pointer-events:auto;}
-  .search-box { right:16px; }
-  .search-box form { display:flex; gap:6px; align-items:center; }
-  .search-box input{ padding:6px 10px;border:none;border-radius:4px;outline:none; width:220px;background:#1b1b1b;color:#fff; }
-  .search-box button{ background:orange;color:#000;border:none;border-radius:4px; padding:6px 10px;font-weight:bold;cursor:pointer; }
-  .menu-dropdown { left:16px; top:55px; min-width:160px; flex-direction:column; gap:10px; padding:10px; }
-  .menu-dropdown a { color:white;text-decoration:none;padding:6px 10px; border-radius:4px;background:orange;text-align:left;font-weight:bold;display:block; }
-  .menu-dropdown a:hover{ background:#ff9800; }
-  .dropdown-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:1050; display:none; pointer-events:auto; }
+  <form class="search" id="searchForm">
+    <input type="text" id="q" placeholder="Search videos..." aria-label="Search">
+    <button type="submit" class="btn">Search</button>
+  </form>
+</div>
+</header> <main id="main" class="container section"> <h2>🔥 Trending Now</h2>
 
-  #postsContainer{ position:relative; z-index:0; padding:20px; display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
-  .post-card{ position:relative; z-index:1; background:#111;color:white;border-radius:10px;overflow:hidden;border:1px solid #222;box-shadow:0 0 10px rgba(255,165,0,0.15); transition: transform .12s ease; }
-  .post-card:hover { transform: translateY(-2px); }
-  .thumb-wrap{ position:relative; }
-  .post-card img{ width:100%; height:180px; object-fit:cover; display:block; cursor:pointer; }
-  .play-badge{ position:absolute; right:10px; bottom:10px; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 8px; border-radius:6px; font-size:12px; }
-  .post-card h3{ margin:10px; font-size:16px; line-height:1.3; min-height:40px; }
-  .empty{ color:#0ff; padding:20px; }
-  .loader{ color:#0ff; padding:20px; }
-
-  @media (max-width:480px){ .search-box input{ width:160px; } }
-
-  footer { text-align:center; padding:25px 10px 13px 10px; color:#fff; font-weight:bold; font-size:15px; background:#111; letter-spacing:1px; border-top:1px solid #1f1f1f; margin-top:32px; }
+<!-- Firestore video cards (your snippet integrated) -->
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width, initial-scale=1"/> <title>Videos</title> <style> body { margin:0; background:#000; font-family:Arial,sans-serif; color:#fff; } /* Optional tiny search; remove if not needed */ .search { display:flex; gap:8px; align-items:center; padding:16px; } .search input{ flex:1; min-width:120px; background:#1b1b1b; border:1px solid #2a2a2a; color:#fff; border-radius:6px; padding:8px 10px; outline:none; } .search button{ background:orange; color:#000; border:0; border-radius:6px; padding:8px 12px; font-weight:700; cursor:pointer; }
+/* Cards grid */
+#postsContainer { padding:16px; display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+.post-card{ background:#111; color:white; border-radius:10px; overflow:hidden; border:1px solid #222; box-shadow:0 0 10px rgba(255,165,0,0.15); transition: transform .12s ease; }
+.post-card:hover { transform: translateY(-2px); }
+.thumb-wrap{ position:relative; }
+.post-card img{ width:100%; height:180px; object-fit:cover; display:block; cursor:pointer; background:#000; }
+.play-badge{ position:absolute; right:10px; bottom:10px; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.2); color:#fff; padding:4px 8px; border-radius:6px; font-size:12px; }
+.post-card h3{ margin:10px; font-size:16px; line-height:1.3; min-height:40px; }
+.empty{ color:#0ff; padding:20px; }
+.loader{ color:#0ff; padding:20px; }
 </style>
-</head>
-<body>
 
-<header>
-  <div class="left">
-    <div class="menu" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></div>
-    <div class="menu-dropdown" id="menuDropdown">
-      </a>
-      <a href="./pornstar.html">Coming Soon</a>
-    </div>
-  </div>
-
-  <div class="logo" id="logoTap">SEX<span>HUBZ</span></div>
-
-  <div class="right">
-    <svg class="icon" id="searchToggle" viewBox="0 0 24 24" aria-label="Search">
-      <circle cx="11" cy="11" r="8" stroke="white" stroke-width="2" fill="none"/>
-      <line x1="17" y1="17" x2="22" y2="22" stroke="white" stroke-width="2"/>
-    </svg>
-    <div class="search-box" id="searchBox">
-      <form id="searchForm" action="">
-        <input id="q" type="text" name="q" placeholder="Search posts..." />
-        <button type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-</header>
-
-<div id="overlay" class="dropdown-overlay"></div>
-
-<div id="postsContainer"><p class="loader">⏳ Loading posts...</p></div>
-
-<footer>SEXHUBZ ALL RIGHT RESERVED</footer>
-
-<script>
-  const overlay = document.getElementById("overlay");
-  const menuToggle = document.getElementById("menuToggle");
-  const menuDropdown = document.getElementById("menuDropdown");
-  const searchToggle = document.getElementById("searchToggle");
-  const searchBox = document.getElementById("searchBox");
-  const logoTap = document.getElementById("logoTap");
-  const searchForm = document.getElementById("searchForm");
-  const qInput = document.getElementById("q");
-
-  function show(el, display="flex"){ if(!el) return; el.style.display=display; }
-  function hide(el){ if(!el) return; el.style.display="none"; }
-  function isShown(el){ if(!el) return false; const ds=el.style.display; return ds?ds!=="none":window.getComputedStyle(el).display!=="none"; }
-  function closeAll(){ hide(menuDropdown); hide(searchBox); hide(overlay); }
-  function openDropdown(dropEl, display="flex"){ closeAll(); show(dropEl, display); show(overlay,"block"); }
-
-  menuToggle.addEventListener("click", e => { e.stopPropagation(); isShown(menuDropdown)?closeAll():openDropdown(menuDropdown,"flex"); });
-  searchToggle.addEventListener("click", e => { e.stopPropagation(); isShown(searchBox)?closeAll():openDropdown(searchBox,"flex"); setTimeout(()=>qInput.focus(),0); });
-  logoTap.addEventListener("click", ()=> window.location.href="index.html");
-  menuDropdown.addEventListener("click", e=> e.stopPropagation());
-  searchBox.addEventListener("click", e=> e.stopPropagation());
-  document.addEventListener("click", closeAll);
-  overlay.addEventListener("click", closeAll);
-</script>
-
-<!-- Firebase + Live Search + Player Navigation -->
-<script type="module">
-  import { app, db } from "./firebase.js";
-  import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-  const postsContainer = document.getElementById("postsContainer");
-  const qInput = document.getElementById("q");
-  const PREFER_SRC_PARAMS = true;
-  let loadedDocs = [];
-
-  function buildPlayerUrlFromSrc({src,title,poster}){
-    const url = new URL("player.html", window.location.href);
-    if(src) url.searchParams.set("src", src);
-    if(title) url.searchParams.set("title", title);
-    if(poster) url.searchParams.set("poster", poster);
-    return url.toString();
-  }
-  function buildPlayerUrlFromPostId(postId){
-    const url = new URL("player.html", window.location.href);
-    url.searchParams.set("postId", postId);
-    return url.toString();
-  }
-
-  function createPostCard(docSnap){
-    const data = docSnap.data(), id = docSnap.id;
-    const card = document.createElement("div");
-    card.className="post-card";
-    const thumbWrap = document.createElement("div");
-    thumbWrap.className="thumb-wrap";
-    const img=document.createElement("img");
-    img.src=data.thumbnail||""; img.alt=data.title||"Video"; img.loading="lazy";
-    const badge=document.createElement("div"); badge.className="play-badge"; badge.textContent="Play ▶";
-    img.addEventListener("click", ()=>{
-      if(PREFER_SRC_PARAMS && data.src){ window.location.href=buildPlayerUrlFromSrc({src:data.src,title:data.title||"",poster:data.thumbnail||""}); }
-      else{ window.location.href=buildPlayerUrlFromPostId(id); }
-    });
-    const title=document.createElement("h3"); title.textContent=data.title||"";
-    thumbWrap.append(img,badge);
-    card.append(thumbWrap,title);
-    return card;
-  }
-
-  function renderList(docs){
-    postsContainer.innerHTML="";
-    if(docs.length===0){ postsContainer.innerHTML="<p class='empty'>No posts found!</p>"; return; }
-    const frag=document.createDocumentFragment();
-    docs.forEach(docSnap=>frag.appendChild(createPostCard(docSnap)));
-    postsContainer.appendChild(frag);
-  }
-
-  function filterAndRender(){
-    const term=(qInput.value||"").trim().toLowerCase();
-    if(!term) return renderList(loadedDocs);
-    const filtered = loadedDocs.filter(d=> (d.data().title||"").toLowerCase().includes(term));
-    renderList(filtered);
-    const url=new URL(window.location.href);
-    if(term) url.searchParams.set("q", term); else url.searchParams.delete("q");
-    window.history.replaceState({}, "", url.toString());
-  }
-
-  async function loadPosts(){
-    try{
-      const postsQuery=query(collection(db,"posts"),orderBy("createdAt","desc"));
-      const snapshot = await getDocs(postsQuery);
-      loadedDocs=[];
-      snapshot.forEach(docSnap=>loadedDocs.push(docSnap));
-      const urlQ=new URLSearchParams(window.location.search).get("q")?.trim()||"";
-      if(urlQ && qInput && !qInput.value) qInput.value=urlQ;
-      renderList(loadedDocs);
-      if(qInput.value) filterAndRender();
-      if(qInput) qInput.addEventListener("input", filterAndRender);
-    }catch(e){ console.error(e); postsContainer.innerHTML="<p class='empty'>Failed to load posts.</p>"; }
-  }
-
-  searchForm.addEventListener("submit", e=> { e.preventDefault(); filterAndRender(); });
-
-  loadPosts();
-</script>
-
-</body>
-</html>
+</head> <body> <!-- Optional search (kept minimal). Delete this block if you want no search UI -->  </form> <!-- Only the video cards grid below --> <div id="postsContainer"><p class="loader">⏳ Loading posts...</p></div> <!-- Firebase + Live Search + Player Navigation --> <script type="module"> import { app, db } from "./firebase.js"; import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; const postsContainer = document.getElementById("postsContainer"); const searchForm = document.getElementById("searchForm"); const qInput = document.getElementById("q"); const PREFER_SRC_PARAMS = true; let loadedDocs = []; function buildPlayerUrlFromSrc({src,title,poster}){ const url = new URL("player.html", window.location.href); if(src) url.searchParams.set("src", src); if(title) url.searchParams.set("title", title); if(poster) url.searchParams.set("poster", poster); return url.toString(); } function buildPlayerUrlFromPostId(postId){ const url = new URL("player.html", window.location.href); url.searchParams.set("postId", postId); return url.toString(); } function createPostCard(docSnap){ const data = docSnap.data(), id = docSnap.id; const card = document.createElement("div"); card.className="post-card"; const thumbWrap = document.createElement("div"); thumbWrap.className="thumb-wrap"; const img=document.createElement("img"); img.src=data.thumbnail||""; img.alt=data.title||"Video"; img.loading="lazy"; const badge=document.createElement("div"); badge.className="play-badge"; badge.textContent="Play ▶"; img.addEventListener("click", ()=>{ if(PREFER_SRC_PARAMS && data.src){ window.location.href = buildPlayerUrlFromSrc({ src:data.src, title:data.title||"", poster:data.thumbnail||"" }); }else{ window.location.href = buildPlayerUrlFromPostId(id); } }); const title=document.createElement("h3"); title.textContent=data.title||""; thumbWrap.append(img,badge); card.append(thumbWrap,title); return card; } function renderList(docs){ postsContainer.innerHTML=""; if(docs.length===0){ postsContainer.innerHTML="<p class='empty'>No posts found!</p>"; return; } const frag=document.createDocumentFragment(); docs.forEach(docSnap=>frag.appendChild(createPostCard(docSnap))); postsContainer.appendChild(frag); } function filterAndRender(){ const term=(qInput?.value||"").trim().toLowerCase(); if(!term){ renderList(loadedDocs); return; } const filtered = loadedDocs.filter(d=> (d.data().title||"").toLowerCase().includes(term)); renderList(filtered); const url=new URL(window.location.href); if(term) url.searchParams.set("q", term); else url.searchParams.delete("q"); window.history.replaceState({}, "", url.toString()); } async function loadPosts(){ try{ const postsQuery=query(collection(db,"posts"),orderBy("createdAt","desc")); const snapshot = await getDocs(postsQuery); loadedDocs = []; snapshot.forEach(docSnap=>loadedDocs.push(docSnap)); const urlQ=new URLSearchParams(window.location.search).get("q")?.trim()||""; if(urlQ && qInput && !qInput.value) qInput.value=urlQ; renderList(loadedDocs); if(qInput?.value) filterAndRender(); searchForm?.addEventListener("submit", e=> { e.preventDefault(); filterAndRender(); }); qInput?.addEventListener("input", filterAndRender); }catch(e){ console.error(e); postsContainer.innerHTML="<p class='empty'>Failed to load posts.</p>"; } } loadPosts(); </script> </body> </html></main> <footer class="footer" role="contentinfo"> <div class="container foot-grid"> <div> <strong>SEXHUBZ</strong> <a href="terms.html">Terms</a> <a href="contact.html">Contact</a> </div> <div> <strong>Explore</strong> <a href="categories.html">Categories</a> <a href="tags.html">Tags</a> <a href="pornstar.html">Pornstars</a> </div> <div> <strong>Library</strong> <a href="favorites.html> </div> <div> <strong>Account</strong> <a href="auth.html">Login / Signup</a> <a href="#" id="themeFooter">Toggle Theme</a> </div> </div> <div class="container" style="margin-top:16px;color:var(--muted)">© 2025 SEXHUBZ</div> </footer> <script> // Theme toggle + hide-on-scroll header (function(){ const KEY = "sx_theme"; const saved = localStorage.getItem(KEY); if (!saved) { document.documentElement.setAttribute("data-theme","dark"); localStorage.setItem(KEY,"dark"); } else { document.documentElement.setAttribute("data-theme", saved); } function toggleTheme(){ const cur = document.documentElement.getAttribute("data-theme") || "dark"; const next = (cur === "dark") ? "light" : "dark"; document.documentElement.setAttribute("data-theme", next); localStorage.setItem(KEY, next); } const foot=document.getElementById("themeFooter"); foot && foot.addEventListener("click",(e)=>{e.preventDefault(); toggleTheme();}); let last=window.scrollY;const el=document.querySelector(".header"); window.addEventListener("scroll",()=>{ const y=window.scrollY; if(y>last && y>80) el.classList.add("hide"); else el.classList.remove("hide"); last=y; },{passive:true}); })(); </script> <!-- Firebase + Live Search + Player Navigation --> <script type="module"> // IMPORTANT: Provide your firebase.js that exports initialized 'app' and 'db' import { app, db } from "./firebase.js"; import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"; const postsContainer = document.getElementById("postsContainer"); const searchForm = document.getElementById("searchForm"); const qInput = document.getElementById("q"); const PREFER_SRC_PARAMS = true; let loadedDocs = []; function buildPlayerUrlFromSrc({src,title,poster}){ const url = new URL("player.html", window.location.href); if(src) url.searchParams.set("src", src); if(title) url.searchParams.set("title", title); if(poster) url.searchParams.set("poster", poster); return url.toString(); } function buildPlayerUrlFromPostId(postId){ const url = new URL("player.html", window.location.href); url.searchParams.set("postId", postId); return url.toString(); } function createPostCard(docSnap){ const data = docSnap.data(), id = docSnap.id; const card = document.createElement("div"); card.className="post-card"; const thumbWrap = document.createElement("div"); thumbWrap.className="thumb-wrap"; const img=document.createElement("img"); img.src=data.thumbnail||""; img.alt=data.title||"Video"; img.loading="lazy"; const badge=document.createElement("div"); badge.className="play-badge"; badge.textContent="Play ▶"; img.addEventListener("click", ()=>{ if(PREFER_SRC_PARAMS && data.src){ window.location.href = buildPlayerUrlFromSrc({ src:data.src, title:data.title||"", poster:data.thumbnail||"" }); } else { window.location.href = buildPlayerUrlFromPostId(id); } }); const title=document.createElement("h3"); title.textContent=data.title||""; thumbWrap.append(img,badge); card.append(thumbWrap,title); return card; } function renderList(docs){ postsContainer.innerHTML=""; if(docs.length===0){ postsContainer.innerHTML="<p class='empty'>No posts found!</p>"; return; } const frag=document.createDocumentFragment(); docs.forEach(docSnap=>frag.appendChild(createPostCard(docSnap))); postsContainer.appendChild(frag); } function filterAndRender(){ const term=(qInput?.value||"").trim().toLowerCase(); if(!term){ renderList(loadedDocs); // Clean URL when empty const url=new URL(window.location.href); url.searchParams.delete("q"); window.history.replaceState({}, "", url.toString()); return; } const filtered = loadedDocs.filter(d=> (d.data().title||"").toLowerCase().includes(term)); renderList(filtered); // Persist q in URL const url=new URL(window.location.href); url.searchParams.set("q", term); window.history.replaceState({}, "", url.toString()); } async function loadPosts(){ try{ const postsQuery=query(collection(db,"posts"),orderBy("createdAt","desc")); const snapshot = await getDocs(postsQuery); loadedDocs = []; snapshot.forEach(docSnap=>loadedDocs.push(docSnap)); // Pre-fill search from URL if present const urlQ=new URLSearchParams(window.location.search).get("q")?.trim()||""; if(urlQ && qInput && !qInput.value) qInput.value=urlQ; renderList(loadedDocs); // If there was a query, apply it if(qInput?.value) filterAndRender(); // Hook form and live input searchForm?.addEventListener("submit", e=> { e.preventDefault(); filterAndRender(); }); qInput?.addEventListener("input", filterAndRender); }catch(e){ console.error(e); postsContainer.innerHTML="<p class='empty'>Failed to load posts.</p>"; } } loadPosts(); </script> </body> </html>
